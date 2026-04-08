@@ -1,0 +1,25 @@
+{
+  "overview": "Bongly is a static landing page for a privacy-first indie app studio focused on West Bengal. It features the Chalok transport directory app, blog section, and a clean privacy-focused design with Soft UI base, Glass morphism highlights, and Neumorphism interactions.",
+  "features": [
+    "Soft UI base with pastel palette and gentle shadows",
+    "Glass morphism frosted cards with backdrop blur",
+    "Neumorphism raised/pressed button and card interactions",
+    "Chalok app card with animated glowing border",
+    "Aurora mesh gradient hero section",
+    "Responsive drawer navigation",
+    "Blog section with hardcoded posts",
+    "Privacy Promise section",
+    "SEO meta tags"
+  ],
+  "category": "landing-page",
+  "tags": [
+    "landing-page",
+    "soft-ui",
+    "glassmorphism",
+    "neumorphism",
+    "bengal",
+    "privacy",
+    "static-site"
+  ],
+  "last_updated": "2026-04-08T04:14:43.490Z"
+}

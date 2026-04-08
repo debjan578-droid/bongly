@@ -1,0 +1,379 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 1.5rem;
+    /* Bongly Soft UI + Glass palette — OKLCH raw L C H */
+    --background: 0.976 0.008 264;
+    --foreground: 0.145 0 0;
+    --card: 0.995 0.003 264;
+    --card-foreground: 0.145 0 0;
+    --popover: 0.995 0.003 264;
+    --popover-foreground: 0.145 0 0;
+    --primary: 0.42 0.25 264;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.95 0.012 264;
+    --secondary-foreground: 0.205 0 0;
+    --muted: 0.965 0.008 264;
+    --muted-foreground: 0.45 0.01 264;
+    --accent: 0.93 0.025 264;
+    --accent-foreground: 0.145 0 0;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 1 0 0;
+    --border: 0.92 0.012 264;
+    --input: 0.92 0.012 264;
+    --ring: 0.42 0.25 264;
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.995 0.003 264;
+    --sidebar-foreground: 0.145 0 0;
+    --sidebar-primary: 0.42 0.25 264;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.95 0.012 264;
+    --sidebar-accent-foreground: 0.205 0 0;
+    --sidebar-border: 0.92 0.012 264;
+    --sidebar-ring: 0.42 0.25 264;
+
+    /* ── Shadow hierarchy ─────────────────────────────────────────────────── */
+    --shadow-soft: 0 2px 8px rgba(21, 48, 200, 0.04), 0 1px 3px
+      rgba(21, 48, 200, 0.06);
+    --shadow-elevated: 0 4px 20px rgba(21, 48, 200, 0.08), 0 2px 6px
+      rgba(21, 48, 200, 0.06);
+    --shadow-glass: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 12px
+      rgba(21, 48, 200, 0.07);
+    /* Neumorphic outset on hover — raised from surface */
+    --shadow-neumorphic-hover: 6px 6px 14px rgba(21, 48, 200, 0.13), -4px -4px
+      10px rgba(255, 255, 255, 0.9);
+    /* Neumorphic inset on press */
+    --shadow-neumorphic-press: inset 3px 3px 7px rgba(21, 48, 200, 0.12), inset
+      -2px -2px 5px rgba(255, 255, 255, 0.85);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+  }
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Aurora gradient background */
+.aurora-bg {
+  background: radial-gradient(
+      ellipse at 20% 50%,
+      rgba(191, 220, 255, 0.75) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 80% 30%,
+      rgba(199, 182, 255, 0.75) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 50% 80%,
+      rgba(173, 216, 255, 0.6) 0%,
+      transparent 60%
+    ), #eef2ff;
+  animation: aurora-shift 12s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-shift {
+  0% {
+    background: radial-gradient(
+        ellipse at 20% 50%,
+        rgba(191, 220, 255, 0.75) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at 80% 30%,
+        rgba(199, 182, 255, 0.75) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at 50% 80%,
+        rgba(173, 216, 255, 0.6) 0%,
+        transparent 60%
+      ), #eef2ff;
+  }
+  50% {
+    background: radial-gradient(
+        ellipse at 40% 30%,
+        rgba(199, 182, 255, 0.78) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at 70% 60%,
+        rgba(173, 216, 255, 0.72) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at 20% 80%,
+        rgba(191, 220, 255, 0.65) 0%,
+        transparent 60%
+      ), #f0f4ff;
+  }
+  100% {
+    background: radial-gradient(
+        ellipse at 70% 40%,
+        rgba(173, 216, 255, 0.7) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at 20% 70%,
+        rgba(191, 220, 255, 0.78) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at 80% 80%,
+        rgba(199, 182, 255, 0.65) 0%,
+        transparent 60%
+      ), #edf1ff;
+  }
+}
+
+/* Glow animation for blog button */
+@keyframes glow-border {
+  0%,
+  100% {
+    box-shadow: 0 0 5px #1530c8, 0 0 10px #1530c8;
+  }
+  50% {
+    box-shadow: 0 0 15px #1530c8, 0 0 30px #7c3aed, 0 0 45px #06b6d4;
+  }
+}
+
+.glow-btn {
+  animation: glow-border 2.5s ease-in-out infinite;
+  border: 2px solid #1530c8;
+}
+
+/* Drawer slide-in */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(21, 48, 200, 0.15);
+  backdrop-filter: blur(4px);
+  z-index: 90;
+  animation: fade-in 0.2s ease;
+}
+
+.drawer-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 290px;
+  background: rgba(245, 247, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 100;
+  animation: slide-in-right 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -8px 0 40px rgba(21, 48, 200, 0.1), -2px 0 8px
+    rgba(21, 48, 200, 0.06);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ── Spinning Glass Card (hero background) ───────────────────────────────── */
+
+@keyframes spin-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-glass-card {
+  animation: spin-rotate 11s linear infinite alternate;
+  will-change: transform;
+}
+
+/* ── Animated Glow Card ───────────────────────────────────────────────────── */
+
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate-glow {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+@keyframes card-glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 12px 3px rgba(139, 92, 246, 0.7), 0 0 30px 8px
+      rgba(21, 48, 200, 0.45), 0 0 60px 15px rgba(139, 92, 246, 0.2);
+  }
+  33% {
+    box-shadow: 0 0 18px 5px rgba(21, 48, 200, 0.75), 0 0 40px 10px
+      rgba(34, 197, 94, 0.45), 0 0 75px 18px rgba(21, 48, 200, 0.2);
+  }
+  66% {
+    box-shadow: 0 0 18px 5px rgba(249, 115, 22, 0.65), 0 0 40px 10px
+      rgba(236, 72, 153, 0.45), 0 0 75px 18px rgba(249, 115, 22, 0.2);
+  }
+}
+
+.glow-card-wrapper {
+  position: relative;
+  border-radius: 1rem;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    #8b5cf6,
+    #1530c8,
+    #22c55e,
+    #f97316,
+    #ec4899,
+    #8b5cf6
+  );
+  animation: rotate-glow 4s linear infinite, card-glow-pulse 3s ease-in-out
+    infinite;
+}
+
+/* ── Glass Morphism & Soft UI utilities ──────────────────────────────────── */
+
+@layer utilities {
+  .glass-base {
+    @apply backdrop-blur-md;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-card {
+    @apply glass-base rounded-2xl;
+  }
+
+  .glass-panel {
+    @apply backdrop-blur-xl;
+    background: rgba(240, 244, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 20px
+      rgba(21, 48, 200, 0.08);
+  }
+
+  .soft-section {
+    background: linear-gradient(
+      160deg,
+      rgba(238, 242, 255, 0.8) 0%,
+      rgba(245, 247, 255, 0.95) 100%
+    );
+  }
+
+  .soft-section-alt {
+    background: linear-gradient(
+      160deg,
+      rgba(245, 247, 255, 0.95) 0%,
+      rgba(238, 242, 255, 0.8) 100%
+    );
+  }
+
+  .soft-shadow {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .elevated-shadow {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  /* Neumorphic button: normal → raised on hover → pressed on active */
+  .btn-neumorphic {
+    @apply transition-smooth;
+    box-shadow: 3px 3px 8px rgba(21, 48, 200, 0.1), -2px -2px 6px
+      rgba(255, 255, 255, 0.8);
+  }
+  .btn-neumorphic:hover {
+    box-shadow: var(--shadow-neumorphic-hover);
+    transform: translateY(-1px);
+  }
+  .btn-neumorphic:active {
+    box-shadow: var(--shadow-neumorphic-press);
+    transform: translateY(0px);
+  }
+
+  /* Neumorphic card: lifts on hover */
+  .card-neumorphic {
+    @apply transition-smooth;
+    box-shadow: var(--shadow-soft);
+  }
+  .card-neumorphic:hover {
+    box-shadow: var(--shadow-neumorphic-hover);
+    transform: translateY(-2px);
+  }
+
+  .soft-radius-lg {
+    @apply rounded-3xl;
+  }
+
+  .soft-radius-md {
+    @apply rounded-2xl;
+  }
+
+  .soft-radius-sm {
+    @apply rounded-xl;
+  }
+}
