@@ -93,78 +93,24 @@
   font-display: swap;
 }
 
-/* Aurora gradient background */
+/* Aurora gradient background — static, no animation */
 .aurora-bg {
   background: radial-gradient(
-      ellipse at 20% 50%,
-      rgba(191, 220, 255, 0.75) 0%,
+      ellipse at 40% 30%,
+      rgba(199, 182, 255, 0.78) 0%,
       transparent 60%
     ),
     radial-gradient(
-      ellipse at 80% 30%,
-      rgba(199, 182, 255, 0.75) 0%,
+      ellipse at 70% 60%,
+      rgba(173, 216, 255, 0.72) 0%,
       transparent 60%
     ),
     radial-gradient(
-      ellipse at 50% 80%,
-      rgba(173, 216, 255, 0.6) 0%,
+      ellipse at 20% 80%,
+      rgba(191, 220, 255, 0.65) 0%,
       transparent 60%
-    ), #eef2ff;
-  animation: aurora-shift 12s ease-in-out infinite alternate;
-}
-
-@keyframes aurora-shift {
-  0% {
-    background: radial-gradient(
-        ellipse at 20% 50%,
-        rgba(191, 220, 255, 0.75) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse at 80% 30%,
-        rgba(199, 182, 255, 0.75) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse at 50% 80%,
-        rgba(173, 216, 255, 0.6) 0%,
-        transparent 60%
-      ), #eef2ff;
-  }
-  50% {
-    background: radial-gradient(
-        ellipse at 40% 30%,
-        rgba(199, 182, 255, 0.78) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse at 70% 60%,
-        rgba(173, 216, 255, 0.72) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse at 20% 80%,
-        rgba(191, 220, 255, 0.65) 0%,
-        transparent 60%
-      ), #f0f4ff;
-  }
-  100% {
-    background: radial-gradient(
-        ellipse at 70% 40%,
-        rgba(173, 216, 255, 0.7) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse at 20% 70%,
-        rgba(191, 220, 255, 0.78) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse at 80% 80%,
-        rgba(199, 182, 255, 0.65) 0%,
-        transparent 60%
-      ), #edf1ff;
-  }
+    ), #f0f4ff;
+  transform: translateZ(0);
 }
 
 /* Glow animation for blog button */
@@ -227,19 +173,7 @@
   }
 }
 
-/* ── Animated Glow Card ───────────────────────────────────────────────────── */
-
-@property --glow-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes rotate-glow {
-  to {
-    --glow-angle: 360deg;
-  }
-}
+/* ── Glow Card ───────────────────────────────────────────────────────────── */
 
 @keyframes card-glow-pulse {
   0%,
@@ -260,9 +194,13 @@
 .glow-card-wrapper {
   position: relative;
   border-radius: 1rem;
-  padding: 2px;
+  /* Extra padding so the outer glow shadow is never clipped */
+  padding: 3px;
+  /* Ensure the box-shadow glow bleeds outside the element */
+  overflow: visible;
+  /* Static multi-color border — no rotating background animation */
   background: conic-gradient(
-    from var(--glow-angle),
+    from 45deg,
     #8b5cf6,
     #1530c8,
     #22c55e,
@@ -270,8 +208,9 @@
     #ec4899,
     #8b5cf6
   );
-  animation: rotate-glow 4s linear infinite, card-glow-pulse 3s ease-in-out
-    infinite;
+  /* Only pulse the box-shadow — no background movement */
+  animation: card-glow-pulse 2s ease-in-out infinite;
+  will-change: box-shadow;
 }
 
 /* ── Glass Morphism & Soft UI utilities ──────────────────────────────────── */

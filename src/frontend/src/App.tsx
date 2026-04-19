@@ -28,7 +28,8 @@ const APPS: App[] = [
     description: "রাইপুর-বাঁকুড়ার সব ভাড়া গাড়ি এখন এক জায়গায় — আশপাশের সমস্ত গাড়ি Chalok এই।",
     logoSrc: "/assets/chalok-logo.webp",
     logoSrcFallback: "/assets/chalok-logo.png",
-    logoAlt: "Chalok App by Bongly",
+    logoAlt:
+      "Chalok - Rent Car With Driver Booking App in Raipur Bankura by Bongly",
     playStoreUrl: "#",
   },
 ];
@@ -179,6 +180,7 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
                 className="h-7 w-auto object-contain rounded-lg"
                 loading="eager"
                 fetchPriority="high"
+                decoding="async"
               />
             </picture>
           </span>
@@ -268,6 +270,7 @@ export function NavDrawer({
                 alt="Bongly"
                 className="h-7 w-auto object-contain rounded-lg"
                 loading="eager"
+                decoding="async"
               />
             </picture>
           </span>
@@ -437,6 +440,8 @@ function Hero() {
                 alt="Bongly"
                 className="h-20 w-auto object-contain rounded-2xl drop-shadow-lg"
                 loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
             </picture>
           </span>
@@ -511,6 +516,8 @@ function AppsSection() {
       style={{
         background:
           "linear-gradient(180deg, #eef2ff 0%, #f5f7ff 60%, #eef2ff 100%)",
+        contentVisibility: "auto",
+        containIntrinsicSize: "0 600px",
       }}
     >
       <div className="max-w-5xl mx-auto">
@@ -522,7 +529,11 @@ function AppsSection() {
             Small, focused tools built for everyday needs.
           </p>
         </div>
-        <div className="flex flex-wrap justify-center gap-10">
+        {/* overflow:visible so glow shadows below cards are never clipped */}
+        <div
+          className="flex flex-wrap justify-center gap-10"
+          style={{ overflow: "visible" }}
+        >
           {APPS.map((app, i) => (
             <AppCard key={app.id} app={app} index={i + 1} />
           ))}
@@ -534,7 +545,11 @@ function AppsSection() {
 
 function AppCard({ app, index }: { app: App; index: number }) {
   return (
-    <div className="glow-card-wrapper w-full max-w-sm">
+    /* Extra padding-bottom so the bottom glow shadow bleeds out fully */
+    <div
+      className="glow-card-wrapper w-full max-w-sm"
+      style={{ overflow: "visible", marginBottom: "16px" }}
+    >
       <article
         data-ocid={`apps.card.${index}`}
         className="glass-base rounded-[14px] flex flex-col items-center p-8 w-full"
@@ -589,8 +604,16 @@ function AppCard({ app, index }: { app: App; index: number }) {
             src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
             alt="Get it on Google Play"
             className="h-14 object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </a>
+        <p
+          className="text-sm text-center font-medium mt-3"
+          style={{ color: "#D97706" }}
+        >
+          4.7/5 ⭐ (1000+ Active Users)
+        </p>
       </article>
     </div>
   );
@@ -605,6 +628,8 @@ function AboutSection() {
       style={{
         background:
           "linear-gradient(160deg, rgba(238,242,255,0.9) 0%, rgba(245,247,255,0.95) 100%)",
+        contentVisibility: "auto",
+        containIntrinsicSize: "0 500px",
       }}
     >
       <div className="max-w-5xl mx-auto">
@@ -658,6 +683,8 @@ function BlogSection() {
       style={{
         background:
           "linear-gradient(180deg, rgba(245,247,255,0.95) 0%, #eef2ff 100%)",
+        contentVisibility: "auto",
+        containIntrinsicSize: "0 700px",
       }}
     >
       <div className="max-w-5xl mx-auto">
@@ -710,6 +737,7 @@ function BlogCard({ post, index }: { post: BlogPost; index: number }) {
           alt={post.title}
           className="w-full h-48 object-cover group-hover:scale-[1.04] transition-transform duration-500"
           loading="lazy"
+          decoding="async"
         />
       </div>
       <div className="p-5">
@@ -738,6 +766,8 @@ function PrivacyPromise() {
       style={{
         background:
           "linear-gradient(160deg, rgba(238,242,255,0.95) 0%, rgba(230,236,255,0.85) 100%)",
+        contentVisibility: "auto",
+        containIntrinsicSize: "0 500px",
       }}
     >
       <div className="max-w-xl mx-auto text-center">
@@ -777,8 +807,12 @@ function PrivacyPromise() {
           <a
             data-ocid="privacy.primary_button"
             href="/privacy-policy"
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl font-semibold text-[15px] glow-btn btn-neumorphic transition-smooth"
-            style={{ color: "#1530C8", background: "rgba(255,255,255,0.8)" }}
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl font-semibold text-[15px] btn-neumorphic transition-smooth"
+            style={{
+              color: "#1530C8",
+              background: "rgba(255,255,255,0.8)",
+              border: "2px solid #1530C8",
+            }}
           >
             Read Our Privacy Policy
           </a>
@@ -894,6 +928,7 @@ export function Footer() {
               alt="Bongly"
               className="h-9 w-auto object-contain rounded-xl opacity-90"
               loading="lazy"
+              decoding="async"
             />
           </picture>
         </span>
