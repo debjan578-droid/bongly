@@ -1,3 +1,9 @@
+import {
+  RouterProvider,
+  createRootRoute,
+  createRoute,
+  createRouter,
+} from "@tanstack/react-router";
 import { ExternalLink, Mail, Menu, ShieldCheck, X } from "lucide-react";
 import { useState } from "react";
 
@@ -9,6 +15,7 @@ type App = {
   tagline: string;
   description: string;
   logoSrc: string;
+  logoSrcFallback: string;
   logoAlt: string;
   playStoreUrl: string;
 };
@@ -19,8 +26,9 @@ const APPS: App[] = [
     name: "Chalok",
     tagline: "Transport Directory",
     description: "রাইপুর-বাঁকুড়ার সব ভাড়া গাড়ি এখন এক জায়গায় — আশপাশের সমস্ত গাড়ি Chalok এই।",
-    logoSrc: "/assets/generated/chalok-logo-transparent.dim_200x200.png",
-    logoAlt: "Chalok App Logo",
+    logoSrc: "/assets/chalok-logo.webp",
+    logoSrcFallback: "/assets/chalok-logo.png",
+    logoAlt: "Chalok App by Bongly",
     playStoreUrl: "#",
   },
 ];
@@ -53,6 +61,82 @@ const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
+// ── Privacy Policy Data ───────────────────────────────────────────────────────
+
+type PolicySection = {
+  number: number;
+  title: string;
+  content: string;
+};
+
+type AppPolicy = {
+  id: string;
+  appName: string;
+  lastUpdated: string;
+  intro: string;
+  sections: PolicySection[];
+};
+
+export const PRIVACY_POLICIES: AppPolicy[] = [
+  {
+    id: "chalok",
+    appName: "Chalok",
+    lastUpdated: "April 19, 2026",
+    intro:
+      "At Chalok, we respect your privacy and are committed to protecting the personal information you share with us.",
+    sections: [
+      {
+        number: 1,
+        title: "Information We Collect",
+        content:
+          "We only collect the information you voluntarily provide to us. This includes the details you submit during registration or while using the app. All information collected is used solely for the purpose of verifying your identity and displaying your profile to passengers. We do not collect any information beyond what is necessary.",
+      },
+      {
+        number: 2,
+        title: "How We Use Your Information",
+        content:
+          "The information you provide is used only to verify your account and make your profile visible to passengers looking for vehicles in your area. We do not use your information for advertising, profiling, or any other commercial purpose.",
+      },
+      {
+        number: 3,
+        title: "Data Security",
+        content:
+          "We take the security of your data seriously. All information is stored securely and access is strictly limited. We do not share your personal information with any third party under any circumstances.",
+      },
+      {
+        number: 4,
+        title: "Location Information",
+        content:
+          "Any location-related information (such as your area or village) is provided by you voluntarily. We do not track or store your real-time GPS location without your explicit permission.",
+      },
+      {
+        number: 5,
+        title: "Passenger Data",
+        content:
+          "Passengers do not need to create an account to use Chalok. Any preferences saved by passengers (such as favorite drivers) are stored only on their own device and are not accessible to us.",
+      },
+      {
+        number: 6,
+        title: "Children's Privacy",
+        content:
+          "Chalok is not intended for use by anyone under the age of 18. We do not knowingly collect information from minors.",
+      },
+      {
+        number: 7,
+        title: "Changes to This Policy",
+        content:
+          "We may update this Privacy Policy from time to time. Any changes will be reflected on this page with an updated date. Continued use of the app after changes means you accept the updated policy.",
+      },
+      {
+        number: 8,
+        title: "Contact Us",
+        content:
+          "If you have any questions or concerns about your privacy or how your data is handled, please reach out to us at:",
+      },
+    ],
+  },
+];
+
 // ── Smooth scroll helper ──────────────────────────────────────────────────────
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -60,7 +144,7 @@ function scrollToSection(id: string) {
 }
 
 // ── Header ────────────────────────────────────────────────────────────────────
-function Header({ onMenuClick }: { onMenuClick: () => void }) {
+export function Header({ onMenuClick }: { onMenuClick: () => void }) {
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50"
@@ -74,11 +158,10 @@ function Header({ onMenuClick }: { onMenuClick: () => void }) {
       }}
     >
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-        <button
-          type="button"
+        <a
+          href="/"
           className="cursor-pointer select-none bg-transparent border-0 p-0 transition-smooth hover:opacity-80 flex items-center gap-2.5"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          aria-label="Back to top"
+          aria-label="Back to home"
         >
           <span
             className="flex items-center justify-center rounded-xl p-1.5"
@@ -88,11 +171,16 @@ function Header({ onMenuClick }: { onMenuClick: () => void }) {
                 "2px 2px 8px rgba(21,48,200,0.10), -1px -1px 5px rgba(255,255,255,0.9)",
             }}
           >
-            <img
-              src="/assets/bongly-logo.png"
-              alt="Bongly"
-              className="h-7 w-auto object-contain rounded-lg"
-            />
+            <picture>
+              <source srcSet="/assets/bongly-logo.webp" type="image/webp" />
+              <img
+                src="/assets/bongly-logo.png"
+                alt="Bongly"
+                className="h-7 w-auto object-contain rounded-lg"
+                loading="eager"
+                fetchPriority="high"
+              />
+            </picture>
           </span>
           <span
             className="font-black tracking-widest text-[18px] select-none"
@@ -104,7 +192,7 @@ function Header({ onMenuClick }: { onMenuClick: () => void }) {
           >
             BONGLY
           </span>
-        </button>
+        </a>
         <button
           type="button"
           data-ocid="nav.open_modal_button"
@@ -123,12 +211,23 @@ function Header({ onMenuClick }: { onMenuClick: () => void }) {
 }
 
 // ── Drawer ────────────────────────────────────────────────────────────────────
-function NavDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function NavDrawer({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
   if (!open) return null;
 
   const handleScroll = (id: string) => {
     onClose();
-    setTimeout(() => scrollToSection(id), 50);
+    // If on home page, scroll; otherwise navigate home first
+    if (window.location.pathname === "/") {
+      setTimeout(() => scrollToSection(id), 50);
+    } else {
+      window.location.href = `/#${id}`;
+    }
   };
 
   return (
@@ -162,11 +261,15 @@ function NavDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
                 "2px 2px 8px rgba(21,48,200,0.10), -1px -1px 5px rgba(255,255,255,0.9)",
             }}
           >
-            <img
-              src="/assets/bongly-logo.png"
-              alt="Bongly"
-              className="h-7 w-auto object-contain rounded-lg"
-            />
+            <picture>
+              <source srcSet="/assets/bongly-logo.webp" type="image/webp" />
+              <img
+                src="/assets/bongly-logo.png"
+                alt="Bongly"
+                className="h-7 w-auto object-contain rounded-lg"
+                loading="eager"
+              />
+            </picture>
           </span>
           <button
             type="button"
@@ -313,102 +416,86 @@ function DrawerLink({
 function Hero() {
   return (
     <section
-      className="aurora-bg flex items-center justify-center overflow-hidden"
+      className="aurora-bg flex items-center justify-center"
       style={{ minHeight: "40vh", paddingTop: "96px", paddingBottom: "72px" }}
     >
-      {/* Outer wrapper — relative so the spinning card can be positioned behind text */}
-      <div className="relative flex items-center justify-center w-full max-w-2xl mx-auto px-6 rounded-3xl">
-        {/* Spinning glass background card — absolutely positioned, z-0 */}
-        <div
-          className="spin-glass-card absolute inset-[-30%] rounded-3xl"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.38) 0%, rgba(199,210,254,0.28) 40%, rgba(167,139,250,0.18) 70%, rgba(255,255,255,0.25) 100%)",
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
-            zIndex: 0,
-          }}
-        />
-
-        {/* Hero content — fixed, z-10 so it stays on top */}
-        <div className="relative z-10 text-center py-12 w-full">
-          {/* Logo */}
-          <div className="flex justify-center mb-5">
-            <span
-              className="flex items-center justify-center rounded-2xl p-2"
-              style={{
-                background: "#fff",
-                boxShadow:
-                  "4px 4px 14px rgba(21,48,200,0.13), -3px -3px 10px rgba(255,255,255,0.95)",
-              }}
-            >
+      <div className="text-center px-6 max-w-2xl mx-auto">
+        {/* Logo */}
+        <div className="flex justify-center mb-5">
+          <span
+            className="flex items-center justify-center rounded-2xl p-2"
+            style={{
+              background: "#fff",
+              boxShadow:
+                "4px 4px 14px rgba(21,48,200,0.13), -3px -3px 10px rgba(255,255,255,0.95)",
+            }}
+          >
+            <picture>
+              <source srcSet="/assets/bongly-logo.webp" type="image/webp" />
               <img
                 src="/assets/bongly-logo.png"
                 alt="Bongly"
                 className="h-20 w-auto object-contain rounded-2xl drop-shadow-lg"
+                loading="eager"
               />
-            </span>
-          </div>
+            </picture>
+          </span>
+        </div>
 
-          {/* Pill tag */}
-          <div
-            className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full text-[13px] font-semibold tracking-wide"
-            style={{
-              color: "#1530C8",
-              background: "transparent",
-              border: "none",
-            }}
-          >
-            <span
-              className="w-2 h-2 rounded-full inline-block"
-              style={{ background: "#1530C8", opacity: 0.7 }}
-            />
-            Privacy-First Utility Apps
-          </div>
+        {/* Pill tag */}
+        <div
+          className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full text-[13px] font-semibold tracking-wide glass-base elevated-shadow"
+          style={{ color: "#1530C8" }}
+        >
+          <span
+            className="w-2 h-2 rounded-full inline-block"
+            style={{ background: "#1530C8", opacity: 0.7 }}
+          />
+          Privacy-First Utility Apps
+        </div>
 
-          <h1
-            className="text-4xl sm:text-5xl font-black tracking-widest mb-5"
-            style={{
-              color: "#111827",
-              letterSpacing: "0.12em",
-              fontFamily: "'Space Grotesk', sans-serif",
-            }}
-          >
-            BONGLY
-          </h1>
-          <p
-            className="text-lg sm:text-xl font-medium leading-relaxed"
-            style={{ color: "#374151" }}
-          >
-            Building apps for real people, real places.
-            <br />
-            <span style={{ color: "#6B7280", fontSize: "0.95em" }}>
-              Simple. Reliable. Made in West Bengal.
-            </span>
-          </p>
+        <h1
+          className="text-4xl sm:text-5xl font-black tracking-widest mb-5"
+          style={{
+            color: "#111827",
+            letterSpacing: "0.12em",
+            fontFamily: "'Space Grotesk', sans-serif",
+          }}
+        >
+          BONGLY
+        </h1>
+        <p
+          className="text-lg sm:text-xl font-medium leading-relaxed"
+          style={{ color: "#374151" }}
+        >
+          Building apps for real people, real places.
+          <br />
+          <span style={{ color: "#6B7280", fontSize: "0.95em" }}>
+            Simple. Reliable. Made in West Bengal.
+          </span>
+        </p>
 
-          {/* CTA */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <button
-              type="button"
-              onClick={() => scrollToSection("apps")}
-              data-ocid="hero.cta_primary"
-              className="px-7 py-3 rounded-2xl font-semibold text-[15px] text-white btn-neumorphic transition-smooth"
-              style={{ background: "#1530C8" }}
-            >
-              Explore Our Apps
-            </button>
-            <a
-              href="https://blog.bongly.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-ocid="hero.cta_secondary"
-              className="px-7 py-3 rounded-2xl font-semibold text-[15px] glass-base btn-neumorphic inline-flex items-center gap-2"
-              style={{ color: "#1530C8" }}
-            >
-              Read Our Blog <ExternalLink size={14} />
-            </a>
-          </div>
+        {/* CTA */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={() => scrollToSection("apps")}
+            data-ocid="hero.cta_primary"
+            className="px-7 py-3 rounded-2xl font-semibold text-[15px] text-white btn-neumorphic transition-smooth"
+            style={{ background: "#1530C8" }}
+          >
+            Explore Our Apps
+          </button>
+          <a
+            href="https://blog.bongly.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-ocid="hero.cta_secondary"
+            className="px-7 py-3 rounded-2xl font-semibold text-[15px] glass-base btn-neumorphic inline-flex items-center gap-2"
+            style={{ color: "#1530C8" }}
+          >
+            Read Our Blog <ExternalLink size={14} />
+          </a>
         </div>
       </div>
     </section>
@@ -463,11 +550,17 @@ function AppCard({ app, index }: { app: App; index: number }) {
               "3px 3px 10px rgba(21,48,200,0.1), -2px -2px 8px rgba(255,255,255,0.95)",
           }}
         >
-          <img
-            src={app.logoSrc}
-            alt={app.logoAlt}
-            className="w-20 h-20 object-contain"
-          />
+          <picture>
+            <source srcSet={app.logoSrc} type="image/webp" />
+            <img
+              src={app.logoSrcFallback}
+              alt={app.logoAlt}
+              className="w-20 h-20 object-contain rounded-2xl"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
         <h2
           className="text-xl font-bold text-center mb-3"
@@ -696,7 +789,7 @@ function PrivacyPromise() {
 }
 
 // ── Footer ────────────────────────────────────────────────────────────────────
-function Footer() {
+export function Footer() {
   const year = new Date().getFullYear();
 
   return (
@@ -761,24 +854,22 @@ function Footer() {
 
         {/* Section links */}
         <div className="mt-5 flex items-center gap-6">
-          <button
-            type="button"
+          <a
             data-ocid="footer.link.4"
-            onClick={() => scrollToSection("apps")}
+            href="/#apps"
             className="text-[14px] transition-smooth hover:opacity-80"
             style={{ color: "#6B7280" }}
           >
             Our Apps
-          </button>
-          <button
-            type="button"
+          </a>
+          <a
             data-ocid="footer.link.5"
-            onClick={() => scrollToSection("about")}
+            href="/#about"
             className="text-[14px] transition-smooth hover:opacity-80"
             style={{ color: "#6B7280" }}
           >
             About
-          </button>
+          </a>
         </div>
 
         {/* Divider */}
@@ -796,11 +887,15 @@ function Footer() {
               "3px 3px 10px rgba(21,48,200,0.10), -2px -2px 8px rgba(255,255,255,0.9)",
           }}
         >
-          <img
-            src="/assets/bongly-logo.png"
-            alt="Bongly"
-            className="h-9 w-auto object-contain rounded-xl opacity-90"
-          />
+          <picture>
+            <source srcSet="/assets/bongly-logo.webp" type="image/webp" />
+            <img
+              src="/assets/bongly-logo.png"
+              alt="Bongly"
+              className="h-9 w-auto object-contain rounded-xl opacity-90"
+              loading="lazy"
+            />
+          </picture>
         </span>
 
         {/* Bottom text */}
@@ -810,32 +905,19 @@ function Footer() {
         <p className="text-[12px]" style={{ color: "#9CA3AF" }}>
           Copyright © {year} Bongly, All rights reserved.
         </p>
-        <p className="text-[12px] mt-1" style={{ color: "#9CA3AF" }}>
-          Built with love using{" "}
-          <a
-            href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:opacity-75 transition-smooth"
-            style={{ color: "#1530C8" }}
-          >
-            caffeine.ai
-          </a>
-        </p>
       </div>
     </footer>
   );
 }
 
-// ── Root ──────────────────────────────────────────────────────────────────────
-export default function App() {
+// ── Home Page ─────────────────────────────────────────────────────────────────
+function HomePage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
       <Header onMenuClick={() => setDrawerOpen(true)} />
       <NavDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
-
       <main className="flex-1">
         <Hero />
         <AppsSection />
@@ -843,8 +925,521 @@ export default function App() {
         <BlogSection />
         <PrivacyPromise />
       </main>
+      <Footer />
+    </div>
+  );
+}
+
+// ── Privacy Policy Page ───────────────────────────────────────────────────────
+function PrivacyPolicyPage() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  return (
+    <div
+      className="min-h-screen flex flex-col font-sans"
+      style={{ background: "#ffffff" }}
+    >
+      <Header onMenuClick={() => setDrawerOpen(true)} />
+      <NavDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+
+      <main
+        className="flex-1"
+        style={{ paddingTop: "64px" }}
+        data-ocid="privacy_policy.page"
+      >
+        {/* Title Section */}
+        <div
+          className="px-6 py-14"
+          style={{
+            background:
+              "linear-gradient(160deg, rgba(238,242,255,0.8) 0%, rgba(245,247,255,0.95) 100%)",
+            borderBottom: "1px solid rgba(21,48,200,0.07)",
+          }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <h1
+              className="text-4xl sm:text-5xl font-black mb-3 leading-tight"
+              style={{
+                color: "#1530C8",
+                fontFamily: "'Space Grotesk', sans-serif",
+              }}
+            >
+              Privacy Policy
+            </h1>
+            <p
+              className="text-[15px]"
+              style={{ color: "#6B7280" }}
+              data-ocid="privacy_policy.last_updated"
+            >
+              Last updated: April 19, 2026
+            </p>
+          </div>
+        </div>
+
+        {/* Content Area */}
+        <div className="max-w-4xl mx-auto px-6 py-12">
+          {PRIVACY_POLICIES.map((policy, policyIdx) => (
+            <AppPolicySection
+              key={policy.id}
+              policy={policy}
+              index={policyIdx + 1}
+              isLast={policyIdx === PRIVACY_POLICIES.length - 1}
+            />
+          ))}
+
+          {/* Future apps placeholder note */}
+          <div
+            className="mt-8 py-5 px-6 rounded-2xl text-center"
+            style={{
+              background: "rgba(21,48,200,0.03)",
+              border: "1px dashed rgba(21,48,200,0.15)",
+            }}
+          >
+            <p className="text-[14px]" style={{ color: "#9CA3AF" }}>
+              More app privacy policies will be added here as we grow.
+            </p>
+          </div>
+        </div>
+      </main>
 
       <Footer />
     </div>
   );
+}
+
+function AppPolicySection({
+  policy,
+  index,
+  isLast,
+}: {
+  policy: AppPolicy;
+  index: number;
+  isLast: boolean;
+}) {
+  return (
+    <>
+      {/* App section divider with label */}
+      <div className="flex items-center gap-4 mb-8">
+        <div
+          className="flex-1 h-px"
+          style={{ background: "rgba(21,48,200,0.12)" }}
+        />
+        <span
+          className="px-4 py-1.5 rounded-full text-[13px] font-bold tracking-wider uppercase glass-base btn-neumorphic"
+          style={{ color: "#1530C8", whiteSpace: "nowrap" }}
+          data-ocid={`privacy_policy.app_section.${index}`}
+        >
+          ── {policy.appName} ──
+        </span>
+        <div
+          className="flex-1 h-px"
+          style={{ background: "rgba(21,48,200,0.12)" }}
+        />
+      </div>
+
+      {/* Policy card */}
+      <article
+        className="glass-card card-neumorphic mb-6 overflow-hidden"
+        style={{ background: "rgba(255,255,255,0.85)" }}
+        data-ocid={`privacy_policy.app_card.${index}`}
+      >
+        {/* Card header */}
+        <div
+          className="px-8 pt-8 pb-6"
+          style={{ borderBottom: "1px solid rgba(21,48,200,0.07)" }}
+        >
+          <h2
+            className="text-2xl font-bold mb-3"
+            style={{
+              color: "#1530C8",
+              fontFamily: "'Space Grotesk', sans-serif",
+            }}
+          >
+            {policy.appName} — Privacy Policy
+          </h2>
+          <p
+            className="text-[15px] leading-relaxed"
+            style={{ color: "#374151" }}
+          >
+            {policy.intro}
+          </p>
+        </div>
+
+        {/* Numbered sections */}
+        <div className="px-8 py-6 flex flex-col gap-7">
+          {policy.sections.map((section) => (
+            <PolicySectionItem key={section.number} section={section} />
+          ))}
+        </div>
+      </article>
+
+      {/* Divider between multiple apps */}
+      {!isLast && (
+        <div
+          className="my-10 w-full h-px"
+          style={{ background: "rgba(21,48,200,0.08)" }}
+        />
+      )}
+    </>
+  );
+}
+
+function PolicySectionItem({ section }: { section: PolicySection }) {
+  // Special handling for "Contact Us" section — render email as link
+  const isContactSection = section.number === 8;
+
+  return (
+    <div data-ocid={`privacy_policy.section.${section.number}`}>
+      <h3
+        className="text-[16px] font-bold mb-2 flex items-baseline gap-2"
+        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+      >
+        <span
+          className="inline-flex items-center justify-center rounded-lg text-[12px] font-black flex-shrink-0"
+          style={{
+            background: "rgba(21,48,200,0.08)",
+            color: "#1530C8",
+            width: "24px",
+            height: "24px",
+          }}
+        >
+          {section.number}
+        </span>
+        <span style={{ color: "#1530C8" }}>{section.title}</span>
+      </h3>
+      <div className="pl-8">
+        <p className="text-[15px] leading-relaxed" style={{ color: "#374151" }}>
+          {section.content}
+          {isContactSection && (
+            <>
+              {" "}
+              <a
+                href="mailto:support@bongly.in"
+                className="font-semibold transition-smooth hover:opacity-75 inline-flex items-center gap-1"
+                style={{ color: "#1530C8" }}
+                data-ocid="privacy_policy.contact_email"
+              >
+                <Mail size={13} strokeWidth={2} />
+                support@bongly.in
+              </a>
+              <br />
+              <span
+                className="text-[15px] leading-relaxed mt-1 block"
+                style={{ color: "#374151" }}
+              >
+                We are happy to help.
+              </span>
+            </>
+          )}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ── Terms & Conditions Data ───────────────────────────────────────────────────
+
+type TermsSection = {
+  number: number;
+  title: string;
+  content: string;
+};
+
+type AppTerms = {
+  id: string;
+  appName: string;
+  sections: TermsSection[];
+};
+
+const TERMS_CONDITIONS: AppTerms[] = [
+  {
+    id: "chalok",
+    appName: "Chalok",
+    sections: [
+      {
+        number: 1,
+        title: "Accuracy of Information",
+        content:
+          "You must provide truthful and accurate information including your full name, nickname, vehicle number, and vehicle category. The uploaded photo must clearly show the driver, the vehicle, and the number plate together.",
+      },
+      {
+        number: 2,
+        title: "User Safety & Professional Conduct",
+        content:
+          "You agree to maintain professional behavior with all passengers. Any form of harassment, misbehavior, or demanding extra fare beyond agreed rates is strictly prohibited and may lead to permanent account suspension.",
+      },
+      {
+        number: 3,
+        title: "Real-time Status Updates",
+        content:
+          'You must update your status to "Busy" whenever you are unavailable or on a trip. Keeping an inaccurate status may mislead passengers.',
+      },
+      {
+        number: 4,
+        title: "Limitation of Liability",
+        content:
+          "This application is a platform to connect drivers and passengers only. Bongly is not responsible for any accidents, legal disputes, or personal injury occurring during a trip.",
+      },
+      {
+        number: 5,
+        title: "Account Verification",
+        content:
+          "Your registration is subject to verification and approval. We reserve the right to approve or reject any application without explanation.",
+      },
+      {
+        number: 6,
+        title: "Account Suspension",
+        content:
+          "We reserve the right to suspend or permanently remove any account that violates these terms, engages in misconduct, or provides false information.",
+      },
+      {
+        number: 7,
+        title: "Changes to Terms",
+        content:
+          "We may update these terms at any time. Continued use of the app means you accept the updated terms.",
+      },
+      {
+        number: 8,
+        title: "Contact Us",
+        content: "For any questions regarding these terms:",
+      },
+    ],
+  },
+];
+
+// ── Terms Page ────────────────────────────────────────────────────────────────
+function TermsPage() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  return (
+    <div
+      className="min-h-screen flex flex-col font-sans"
+      style={{ background: "#ffffff" }}
+    >
+      <Header onMenuClick={() => setDrawerOpen(true)} />
+      <NavDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+
+      <main
+        className="flex-1"
+        style={{ paddingTop: "64px" }}
+        data-ocid="terms.page"
+      >
+        {/* Title Section */}
+        <div
+          className="px-6 py-14"
+          style={{
+            background:
+              "linear-gradient(160deg, rgba(238,242,255,0.8) 0%, rgba(245,247,255,0.95) 100%)",
+            borderBottom: "1px solid rgba(21,48,200,0.07)",
+          }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <h1
+              className="text-4xl sm:text-5xl font-black mb-3 leading-tight"
+              style={{
+                color: "#1530C8",
+                fontFamily: "'Space Grotesk', sans-serif",
+              }}
+            >
+              Terms &amp; Conditions
+            </h1>
+            <p
+              className="text-[15px]"
+              style={{ color: "#6B7280" }}
+              data-ocid="terms.last_updated"
+            >
+              Last updated: April 19, 2026
+            </p>
+          </div>
+        </div>
+
+        {/* Content Area */}
+        <div className="max-w-4xl mx-auto px-6 py-12">
+          {TERMS_CONDITIONS.map((terms, termsIdx) => (
+            <AppTermsSection
+              key={terms.id}
+              terms={terms}
+              index={termsIdx + 1}
+              isLast={termsIdx === TERMS_CONDITIONS.length - 1}
+            />
+          ))}
+
+          {/* Future apps placeholder note */}
+          <div
+            className="mt-8 py-5 px-6 rounded-2xl text-center"
+            style={{
+              background: "rgba(21,48,200,0.03)",
+              border: "1px dashed rgba(21,48,200,0.15)",
+            }}
+          >
+            <p className="text-[14px]" style={{ color: "#9CA3AF" }}>
+              More app terms will be added here as we grow.
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+function AppTermsSection({
+  terms,
+  index,
+  isLast,
+}: {
+  terms: AppTerms;
+  index: number;
+  isLast: boolean;
+}) {
+  return (
+    <>
+      {/* App section divider with label */}
+      <div className="flex items-center gap-4 mb-8">
+        <div
+          className="flex-1 h-px"
+          style={{ background: "rgba(21,48,200,0.12)" }}
+        />
+        <span
+          className="px-4 py-1.5 rounded-full text-[13px] font-bold tracking-wider uppercase glass-base btn-neumorphic"
+          style={{ color: "#1530C8", whiteSpace: "nowrap" }}
+          data-ocid={`terms.app_section.${index}`}
+        >
+          ── {terms.appName} ──
+        </span>
+        <div
+          className="flex-1 h-px"
+          style={{ background: "rgba(21,48,200,0.12)" }}
+        />
+      </div>
+
+      {/* Terms card */}
+      <article
+        className="glass-card card-neumorphic mb-6 overflow-hidden"
+        style={{ background: "rgba(255,255,255,0.85)" }}
+        data-ocid={`terms.app_card.${index}`}
+      >
+        {/* Card header */}
+        <div
+          className="px-8 pt-8 pb-6"
+          style={{ borderBottom: "1px solid rgba(21,48,200,0.07)" }}
+        >
+          <h2
+            className="text-2xl font-bold"
+            style={{
+              color: "#1530C8",
+              fontFamily: "'Space Grotesk', sans-serif",
+            }}
+          >
+            {terms.appName} — Terms &amp; Conditions
+          </h2>
+        </div>
+
+        {/* Numbered sections */}
+        <div className="px-8 py-6 flex flex-col gap-7">
+          {terms.sections.map((section) => (
+            <TermsSectionItem key={section.number} section={section} />
+          ))}
+        </div>
+      </article>
+
+      {/* Divider between multiple apps */}
+      {!isLast && (
+        <div
+          className="my-10 w-full h-px"
+          style={{ background: "rgba(21,48,200,0.08)" }}
+        />
+      )}
+    </>
+  );
+}
+
+function TermsSectionItem({ section }: { section: TermsSection }) {
+  const isContactSection = section.number === 8;
+
+  return (
+    <div data-ocid={`terms.section.${section.number}`}>
+      <h3
+        className="text-[16px] font-bold mb-2 flex items-baseline gap-2"
+        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+      >
+        <span
+          className="inline-flex items-center justify-center rounded-lg text-[12px] font-black flex-shrink-0"
+          style={{
+            background: "rgba(21,48,200,0.08)",
+            color: "#1530C8",
+            width: "24px",
+            height: "24px",
+          }}
+        >
+          {section.number}
+        </span>
+        <span style={{ color: "#1530C8" }}>{section.title}</span>
+      </h3>
+      <div className="pl-8">
+        <p className="text-[15px] leading-relaxed" style={{ color: "#374151" }}>
+          {section.content}
+          {isContactSection && (
+            <>
+              {" "}
+              <a
+                href="mailto:support@bongly.in"
+                className="font-semibold transition-smooth hover:opacity-75 inline-flex items-center gap-1"
+                style={{ color: "#1530C8" }}
+                data-ocid="terms.contact_email"
+              >
+                <Mail size={13} strokeWidth={2} />
+                support@bongly.in
+              </a>
+            </>
+          )}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ── Router Setup ──────────────────────────────────────────────────────────────
+
+const rootRoute = createRootRoute();
+
+const homeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: HomePage,
+});
+
+const privacyPolicyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/privacy-policy",
+  component: PrivacyPolicyPage,
+});
+
+const termsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/terms",
+  component: TermsPage,
+});
+
+const routeTree = rootRoute.addChildren([
+  homeRoute,
+  privacyPolicyRoute,
+  termsRoute,
+]);
+
+const router = createRouter({
+  routeTree,
+  defaultPreload: "intent",
+});
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+// ── App default export ────────────────────────────────────────────────────────
+export default function App() {
+  return <RouterProvider router={router} />;
 }

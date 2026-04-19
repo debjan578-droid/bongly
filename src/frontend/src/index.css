@@ -227,22 +227,6 @@
   }
 }
 
-/* ── Spinning Glass Card (hero background) ───────────────────────────────── */
-
-@keyframes spin-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.spin-glass-card {
-  animation: spin-rotate 11s linear infinite alternate;
-  will-change: transform;
-}
-
 /* ── Animated Glow Card ───────────────────────────────────────────────────── */
 
 @property --glow-angle {
