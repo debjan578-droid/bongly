@@ -23890,7 +23890,7 @@ function Header({ onMenuClick }) {
                       "img",
                       {
                         src: "/assets/bongly-logo.png",
-                        alt: "Bongly",
+                        alt: "Bongly - Privacy-First Utility Apps for West Bengal",
                         className: "h-7 w-auto object-contain rounded-lg",
                         loading: "eager",
                         fetchPriority: "high",
@@ -23988,7 +23988,7 @@ function NavDrawer({
                         "img",
                         {
                           src: "/assets/bongly-logo.png",
-                          alt: "Bongly",
+                          alt: "Bongly Logo",
                           className: "h-7 w-auto object-contain rounded-lg",
                           loading: "eager",
                           decoding: "async"
@@ -24169,7 +24169,7 @@ function Hero() {
                 "img",
                 {
                   src: "/assets/bongly-logo.png",
-                  alt: "Bongly",
+                  alt: "Bongly - Privacy-First Utility Apps for West Bengal",
                   className: "h-20 w-auto object-contain rounded-2xl drop-shadow-lg",
                   loading: "eager",
                   fetchPriority: "high",
@@ -24196,18 +24196,7 @@ function Hero() {
             ]
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "h1",
-          {
-            className: "text-4xl sm:text-5xl font-black tracking-widest mb-5",
-            style: {
-              color: "#111827",
-              letterSpacing: "0.12em",
-              fontFamily: "'Space Grotesk', sans-serif"
-            },
-            children: "BONGLY"
-          }
-        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "sr-only", children: "Bongly – Privacy-First Apps for Bankura & West Bengal" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "p",
           {
@@ -24341,7 +24330,7 @@ function AppCard({ app, index: index2 }) {
                 {
                   className: "text-center text-[15px] leading-relaxed mb-8",
                   style: { color: "#4B5563" },
-                  children: app.description
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { lang: "bn", children: app.description })
                 }
               ),
               /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -24400,19 +24389,69 @@ function AboutSection() {
             children: "Our Story"
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-6", style: { color: "#111827" }, children: "About Bongly" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-2", style: { color: "#111827" }, children: "About Bongly" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg text-gray-500 mb-6 font-medium", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { lang: "bn", children: "আমাদের সম্পর্কে" }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "div",
           {
-            className: "glass-card p-8 card-neumorphic",
-            style: { background: "rgba(255,255,255,0.75)" },
+            className: "glass-card p-8 card-neumorphic border border-indigo-200/50",
+            style: {
+              background: "rgba(99,102,241,0.10)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              boxShadow: "0 8px 32px rgba(99,102,241,0.10), 0 1.5px 8px rgba(99,102,241,0.07)"
+            },
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
                 "p",
                 {
                   className: "text-[17px] leading-relaxed",
                   style: { color: "#374151" },
-                  children: "Bongly is a small indie studio from Bankura, West Bengal, India. We build simple, useful apps for everyday people — starting right here in our own backyard."
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "font-bold", children: "Bongly" }),
+                    " ",
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { lang: "bn", children: "হলো বাঁকুড়া, পশ্চিমবঙ্গের একটি ছোট ইন্ডি (" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "font-bold", children: "Indie" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { lang: "bn", children: ") অ্যাপ স্টুডিও। আমরা কোনো বড় কর্পোরেট কোম্পানি নই; বরং আমাদের শুরুটা হয়েছে একটা খুব সাধারণ ভাবনা থেকে—আমাদের চারপাশের মানুষের দৈনন্দিন জীবনের ছোট ছোট সমস্যার সহজ ও কার্যকরী সমাধান করা।" })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "p",
+                {
+                  className: "text-[17px] leading-relaxed mt-4",
+                  style: { color: "#374151" },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { lang: "bn", children: "আমরা বিশ্বাস করি, প্রযুক্তির আসল কাজ হলো মানুষের জীবনকে সহজ করা, জটিল করা নয়। তাই আমরা অদরকারি বা হাই-ফাই ফিচারের পেছনে না ছুটে, এমন সব সহজ ও দরকারি অ্যাপ তৈরি করি যা প্রতিদিনের জীবনে মানুষের সত্যিকার অর্থে কাজে আসে।" })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "p",
+                {
+                  className: "text-[17px] leading-relaxed mt-4",
+                  style: { color: "#374151" },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { lang: "bn", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "আমাদের উদ্দেশ্য খুব পরিষ্কার:" }),
+                    ' আমাদের লক্ষ্য শুধু অ্যাপ বানানো নয়, বরং আমাদের আশেপাশের এলাকার মানুষের জন্য এমন কিছু তৈরি করা যা তাদের সময় বাঁচায় এবং দৈনন্দিন কাজগুলোকে আরও মসৃণ করে। "আমাদের এই পথচলা শুরু হচ্ছে একেবারে আমাদের নিজেদের ঘরের আঙিনা—রাইপুর, বাঁকুড়া থেকেই।"'
+                  ] })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "p",
+                {
+                  className: "text-[17px] leading-relaxed mt-4",
+                  style: { color: "#374151" },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { lang: "bn", children: "একটি ছোট স্টুডিও হিসেবে আমরা প্রতিটি প্রজেক্টে আমাদের সেরাটা দেওয়ার চেষ্টা করি। বড় কোম্পানিগুলো হয়তো স্থানীয় মানুষের ছোট ছোট প্রয়োজনগুলো সব সময় বুঝতে পারে না, কিন্তু আমরা এখানকারই মানুষ, তাই আপনাদের সমস্যাগুলো আমাদেরও সমস্যা।" })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "p",
+                {
+                  className: "text-[17px] leading-relaxed mt-4",
+                  style: { color: "#374151" },
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "font-bold", children: "Bongly" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { lang: "bn", children: "-এর মাধ্যমে আমরা চাই আমাদের নিজেদের এলাকার মানুষের জন্য এমন কিছু সহজ সমাধান তৈরি করতে, যা তারা প্রতিদিন নিশ্চিন্তে ব্যবহার করতে পারে।" })
+                  ]
                 }
               ),
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-6 flex flex-wrap gap-3", children: ["Privacy-first", "Made in Bengal", "Open to Feedback"].map(
@@ -24432,6 +24471,25 @@ function AboutSection() {
       ] }) })
     }
   );
+}
+function PrivacyCardSection() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-10 px-4", style: { background: "transparent" }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      className: "max-w-2xl mx-auto rounded-3xl p-8 text-center border border-teal-200/50",
+      style: {
+        background: "rgba(20,184,166,0.10)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        boxShadow: "0 8px 32px rgba(20,184,166,0.10), 0 1.5px 8px rgba(6,182,212,0.07)"
+      },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl font-bold", style: { color: "#111827" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { lang: "bn", children: "আপনার তথ্য সুরক্ষিত" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-base mt-3", style: { color: "#374151" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { lang: "bn", children: "আমরা আপনার ব্যক্তিগত তথ্যের সর্বোচ্চ নিরাপত্তা নিশ্চিত করি এবং কখনো তৃতীয় পক্ষের সাথে শেয়ার করি না। আপনার সাহায্য করাই আমাদের আসল উদ্দেশ্য।" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm mt-4 italic", style: { color: "#9CA3AF" }, children: "Your information is secure. We ensure the highest security for your personal information and never share it with third parties. Helping you is our true purpose." })
+      ]
+    }
+  ) });
 }
 function BlogSection() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -24594,6 +24652,303 @@ function Footer() {
         borderTop: "1px solid rgba(255,255,255,0.55)"
       },
       children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-lg mx-auto px-6 py-16 flex flex-col items-center text-center gap-0", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full mb-10", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "h2",
+            {
+              className: "text-[20px] font-bold mb-6",
+              style: { color: "#1530C8" },
+              children: "Our Values"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: "flex items-start gap-4 rounded-2xl px-5 py-4 text-left",
+                style: {
+                  background: "#fff",
+                  border: "1px solid rgba(21,48,200,0.08)",
+                  boxShadow: "2px 2px 10px rgba(21,48,200,0.06), -1px -1px 6px rgba(255,255,255,0.8)"
+                },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "span",
+                    {
+                      className: "flex-shrink-0 flex items-center justify-center rounded-xl",
+                      style: { width: 44, height: 44, background: "#E8EAFF" },
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                        "svg",
+                        {
+                          "aria-hidden": "true",
+                          width: "22",
+                          height: "22",
+                          viewBox: "0 0 24 24",
+                          fill: "none",
+                          stroke: "#3D52D5",
+                          strokeWidth: "2",
+                          strokeLinecap: "round",
+                          strokeLinejoin: "round",
+                          children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "12", cy: "12", r: "10" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "12", cy: "12", r: "6" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "12", cy: "12", r: "2" })
+                          ]
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "font-bold text-[14px] mb-0.5",
+                        style: { color: "#111827" },
+                        children: "Our Mission"
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "text-[13px] leading-relaxed",
+                        style: { color: "#6B7280" },
+                        children: "To empower West Bengal – Bankura through innovative mobile technology that improves daily life"
+                      }
+                    )
+                  ] })
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: "flex items-start gap-4 rounded-2xl px-5 py-4 text-left",
+                style: {
+                  background: "#fff",
+                  border: "1px solid rgba(21,48,200,0.08)",
+                  boxShadow: "2px 2px 10px rgba(21,48,200,0.06), -1px -1px 6px rgba(255,255,255,0.8)"
+                },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "span",
+                    {
+                      className: "flex-shrink-0 flex items-center justify-center rounded-xl",
+                      style: { width: 44, height: 44, background: "#E8EAFF" },
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                        "svg",
+                        {
+                          "aria-hidden": "true",
+                          width: "22",
+                          height: "22",
+                          viewBox: "0 0 24 24",
+                          fill: "none",
+                          stroke: "#3D52D5",
+                          strokeWidth: "2",
+                          strokeLinecap: "round",
+                          strokeLinejoin: "round",
+                          children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M9 18h6" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M10 22h4" })
+                          ]
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "font-bold text-[14px] mb-0.5",
+                        style: { color: "#111827" },
+                        children: "Innovation"
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "text-[13px] leading-relaxed",
+                        style: { color: "#6B7280" },
+                        children: "We constantly push boundaries to create cutting-edge solutions"
+                      }
+                    )
+                  ] })
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: "flex items-start gap-4 rounded-2xl px-5 py-4 text-left",
+                style: {
+                  background: "#fff",
+                  border: "1px solid rgba(21,48,200,0.08)",
+                  boxShadow: "2px 2px 10px rgba(21,48,200,0.06), -1px -1px 6px rgba(255,255,255,0.8)"
+                },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "span",
+                    {
+                      className: "flex-shrink-0 flex items-center justify-center rounded-xl",
+                      style: { width: 44, height: 44, background: "#E8EAFF" },
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                        "svg",
+                        {
+                          "aria-hidden": "true",
+                          width: "22",
+                          height: "22",
+                          viewBox: "0 0 24 24",
+                          fill: "none",
+                          stroke: "#3D52D5",
+                          strokeWidth: "2",
+                          strokeLinecap: "round",
+                          strokeLinejoin: "round",
+                          children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "9", cy: "7", r: "4" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M23 21v-2a4 4 0 0 0-3-3.87" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M16 3.13a4 4 0 0 1 0 7.75" })
+                          ]
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "font-bold text-[14px] mb-0.5",
+                        style: { color: "#111827" },
+                        children: "User-Centric"
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "text-[13px] leading-relaxed",
+                        style: { color: "#6B7280" },
+                        children: "Every decision we make puts our users first"
+                      }
+                    )
+                  ] })
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: "flex items-start gap-4 rounded-2xl px-5 py-4 text-left",
+                style: {
+                  background: "#fff",
+                  border: "1px solid rgba(21,48,200,0.08)",
+                  boxShadow: "2px 2px 10px rgba(21,48,200,0.06), -1px -1px 6px rgba(255,255,255,0.8)"
+                },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "span",
+                    {
+                      className: "flex-shrink-0 flex items-center justify-center rounded-xl",
+                      style: { width: 44, height: 44, background: "#E8EAFF" },
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                        "svg",
+                        {
+                          "aria-hidden": "true",
+                          width: "22",
+                          height: "22",
+                          viewBox: "0 0 24 24",
+                          fill: "none",
+                          stroke: "#3D52D5",
+                          strokeWidth: "2",
+                          strokeLinecap: "round",
+                          strokeLinejoin: "round",
+                          children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "12", cy: "12", r: "3" })
+                          ]
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "font-bold text-[14px] mb-0.5",
+                        style: { color: "#111827" },
+                        children: "Transparency"
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "text-[13px] leading-relaxed",
+                        style: { color: "#6B7280" },
+                        children: "Clear privacy policies with no hidden clauses or surprises"
+                      }
+                    )
+                  ] })
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: "flex items-start gap-4 rounded-2xl px-5 py-4 text-left",
+                style: {
+                  background: "#fff",
+                  border: "1px solid rgba(21,48,200,0.08)",
+                  boxShadow: "2px 2px 10px rgba(21,48,200,0.06), -1px -1px 6px rgba(255,255,255,0.8)"
+                },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "span",
+                    {
+                      className: "flex-shrink-0 flex items-center justify-center rounded-xl",
+                      style: { width: 44, height: 44, background: "#E8EAFF" },
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                        "svg",
+                        {
+                          "aria-hidden": "true",
+                          width: "22",
+                          height: "22",
+                          viewBox: "0 0 24 24",
+                          fill: "none",
+                          stroke: "#3D52D5",
+                          strokeWidth: "2",
+                          strokeLinecap: "round",
+                          strokeLinejoin: "round",
+                          children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "12", cy: "7", r: "4" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx("polyline", { points: "16 11 17.5 12.5 21 9" })
+                          ]
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "font-bold text-[14px] mb-0.5",
+                        style: { color: "#111827" },
+                        children: "User Control"
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        className: "text-[13px] leading-relaxed",
+                        style: { color: "#6B7280" },
+                        children: "You have full control over your data and privacy settings"
+                      }
+                    )
+                  ] })
+                ]
+              }
+            )
+          ] })
+        ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "a",
           {
@@ -24693,7 +25048,7 @@ function Footer() {
                 "img",
                 {
                   src: "/assets/bongly-logo.png",
-                  alt: "Bongly",
+                  alt: "Bongly Logo",
                   className: "h-9 w-auto object-contain rounded-xl opacity-90",
                   loading: "lazy",
                   decoding: "async"
@@ -24714,6 +25069,17 @@ function Footer() {
 }
 function HomePage() {
   const [drawerOpen, setDrawerOpen] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    var _a2, _b2, _c2, _d2;
+    const desc = "Bongly makes simple, privacy-first utility apps for the people of West Bengal. Explore Chalok – Rent Car With Driver connecting passengers with trusted local drivers in Bankura district.";
+    const ogDesc = "Discover simple, privacy-first utility apps for West Bengal. Bongly builds apps like Chalok – Rent Car With Driver for Raipur-Bankura.";
+    const ogTitleVal = "Bongly – Privacy-First Utility Apps";
+    document.title = "Bongly – Privacy-First Utility Apps for West Bengal";
+    (_a2 = document.querySelector('meta[name="description"]')) == null ? void 0 : _a2.setAttribute("content", desc);
+    (_b2 = document.querySelector('meta[property="og:description"]')) == null ? void 0 : _b2.setAttribute("content", ogDesc);
+    (_c2 = document.querySelector('meta[property="twitter:description"]')) == null ? void 0 : _c2.setAttribute("content", desc);
+    (_d2 = document.querySelector('meta[property="og:title"]')) == null ? void 0 : _d2.setAttribute("content", ogTitleVal);
+  }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen flex flex-col font-sans", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Header, { onMenuClick: () => setDrawerOpen(true) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(NavDrawer, { open: drawerOpen, onClose: () => setDrawerOpen(false) }),
@@ -24721,6 +25087,7 @@ function HomePage() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(Hero, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(AppsSection, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(AboutSection, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(PrivacyCardSection, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(BlogSection, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(PrivacyPromise, {})
     ] }),
@@ -24729,6 +25096,27 @@ function HomePage() {
 }
 function PrivacyPolicyPage() {
   const [drawerOpen, setDrawerOpen] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    var _a2, _b2, _c2, _d2;
+    const desc = "Read Bongly's Privacy Policy. We protect your personal information and never share it with third parties. Learn how we keep your data safe across all Bongly apps.";
+    const ogDesc = "Bongly Privacy Policy – Your data is protected and never shared with third parties. Transparency and trust are core to everything we build.";
+    const ogTitleVal = "Privacy Policy – Bongly";
+    document.title = "Privacy Policy – Bongly";
+    (_a2 = document.querySelector('meta[name="description"]')) == null ? void 0 : _a2.setAttribute("content", desc);
+    (_b2 = document.querySelector('meta[property="og:description"]')) == null ? void 0 : _b2.setAttribute("content", ogDesc);
+    (_c2 = document.querySelector('meta[property="twitter:description"]')) == null ? void 0 : _c2.setAttribute("content", desc);
+    (_d2 = document.querySelector('meta[property="og:title"]')) == null ? void 0 : _d2.setAttribute("content", ogTitleVal);
+    return () => {
+      var _a3, _b3, _c3, _d3;
+      const defaultDesc = "Bongly makes simple, privacy-first utility apps for the people of West Bengal. Explore Chalok – Rent Car With Driver connecting passengers with trusted local drivers in Bankura district.";
+      const defaultOgDesc = "Discover simple, privacy-first utility apps for West Bengal. Bongly builds apps like Chalok – Rent Car With Driver for Raipur-Bankura.";
+      document.title = "Bongly – Privacy-First Utility Apps for West Bengal";
+      (_a3 = document.querySelector('meta[name="description"]')) == null ? void 0 : _a3.setAttribute("content", defaultDesc);
+      (_b3 = document.querySelector('meta[property="og:description"]')) == null ? void 0 : _b3.setAttribute("content", defaultOgDesc);
+      (_c3 = document.querySelector('meta[property="twitter:description"]')) == null ? void 0 : _c3.setAttribute("content", defaultDesc);
+      (_d3 = document.querySelector('meta[property="og:title"]')) == null ? void 0 : _d3.setAttribute("content", "Bongly – Privacy-First Utility Apps");
+    };
+  }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "div",
     {
@@ -24998,6 +25386,27 @@ const TERMS_CONDITIONS = [
 ];
 function TermsPage() {
   const [drawerOpen, setDrawerOpen] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    var _a2, _b2, _c2, _d2;
+    const desc = "Review Bongly's Terms & Conditions. Guidelines for using Bongly apps including Chalok. Understand your rights, responsibilities, and our commitments to you.";
+    const ogDesc = "Bongly Terms & Conditions – Guidelines and legal information for using our privacy-first utility apps including Chalok.";
+    const ogTitleVal = "Terms & Conditions – Bongly";
+    document.title = "Terms & Conditions – Bongly";
+    (_a2 = document.querySelector('meta[name="description"]')) == null ? void 0 : _a2.setAttribute("content", desc);
+    (_b2 = document.querySelector('meta[property="og:description"]')) == null ? void 0 : _b2.setAttribute("content", ogDesc);
+    (_c2 = document.querySelector('meta[property="twitter:description"]')) == null ? void 0 : _c2.setAttribute("content", desc);
+    (_d2 = document.querySelector('meta[property="og:title"]')) == null ? void 0 : _d2.setAttribute("content", ogTitleVal);
+    return () => {
+      var _a3, _b3, _c3, _d3;
+      const defaultDesc = "Bongly makes simple, privacy-first utility apps for the people of West Bengal. Explore Chalok – Rent Car With Driver connecting passengers with trusted local drivers in Bankura district.";
+      const defaultOgDesc = "Discover simple, privacy-first utility apps for West Bengal. Bongly builds apps like Chalok – Rent Car With Driver for Raipur-Bankura.";
+      document.title = "Bongly – Privacy-First Utility Apps for West Bengal";
+      (_a3 = document.querySelector('meta[name="description"]')) == null ? void 0 : _a3.setAttribute("content", defaultDesc);
+      (_b3 = document.querySelector('meta[property="og:description"]')) == null ? void 0 : _b3.setAttribute("content", defaultOgDesc);
+      (_c3 = document.querySelector('meta[property="twitter:description"]')) == null ? void 0 : _c3.setAttribute("content", defaultDesc);
+      (_d3 = document.querySelector('meta[property="og:title"]')) == null ? void 0 : _d3.setAttribute("content", "Bongly – Privacy-First Utility Apps");
+    };
+  }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "div",
     {
